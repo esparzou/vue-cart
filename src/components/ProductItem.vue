@@ -1,11 +1,14 @@
 <template>
    <div>
-      <h1>Carrito de la Compra</h1>
+      <h3>Producto</h3>
+      {{product.title}} - {{product.price}} - {{product.inventory}}
    </div>
 </template>
 
 <script>
+
    export default {
+      props: ['product'],
       
    }
 </script>
