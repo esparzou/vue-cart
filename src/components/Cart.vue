@@ -3,13 +3,13 @@
       <h1>Carrito de la Compra</h1>
       <ul>
          <li v-for="(product, index) in cartProducts" :key="product.id">
-            {{product.title}} - {{product.price}} - {{product.quantity}}
+            {{product.title}} - {{product.price | currency}} - {{product.quantity}}
             <button @click="addItem(product)">+</button>
             <button @click="restItem(product)">-</button>
             <button @click="removeItem({index, product})">X</button>
          </li>
       </ul>
-      <h3>Total: {{ total }}</h3>
+      <h3>Total: {{ total | currency}}</h3>
    </div>
 </template>
 

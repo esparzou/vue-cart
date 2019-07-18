@@ -1,7 +1,7 @@
 <template>
    <div>
       <h3>Producto</h3>
-      {{product.title}} - {{product.price}} - {{product.inventory}}
+      {{product.title}} - {{product.price | currency}} - {{product.inventory}}
       <button @click="addProductToCart(product)">Add</button>
    </div>
 </template>
