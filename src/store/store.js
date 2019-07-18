@@ -13,6 +13,7 @@ export default new Vuex.Store({
   },
 
   getters:{
+
     /** Products **/
     allProducts: state => state.products,
 
@@ -45,6 +46,30 @@ export default new Vuex.Store({
         }
         context.commit('decrementProductInventory', product);
       }
+    },
+
+    addProductCart(context, product) {      
+        const cartItem = context.state.cart.find( (item) => item.id === product.id );
+        const productItem = context.state.products.find( (item) => item.id === product.id );
+        if(productItem.inventory > 0) {
+          context.commit('incrementItemQuantity', cartItem);
+          context.commit('decrementProductInventory', productItem);
+        }
+        
+    },
+
+    restProductCart(context, product) {
+      const cartItem = context.state.cart.find( (item) => item.id === product.id );
+      const productItem = context.state.products.find( (item) => item.id === product.id );
+      if(cartItem.quantity > 1) {
+        context.commit('decrementItemQuantity', cartItem);
+        context.commit('incrementProductInventory', productItem);
+      }  
+    },
+
+    removeProductToCart(context, {index, product}) {
+      context.commit('deleteItem', index);
+      context.commit('restoreInventory', product);
     }
 
   },
@@ -58,6 +83,10 @@ export default new Vuex.Store({
 
     decrementProductInventory(state, product) {
       product.inventory--;
+    },
+
+    incrementProductInventory(state, product) {
+      product.inventory++;
     },
 
     /** Cart **/
@@ -74,6 +103,22 @@ export default new Vuex.Store({
     incrementItemQuantity(state, cartItem) {
       cartItem.quantity++;
     },
+
+    decrementItemQuantity(state, cartItem) {
+      cartItem.quantity--;
+    },
+
+    deleteItem(state, index) {
+      state.cart.splice(index, 1);
+    },
+
+    restoreInventory(state, product) {
+      const productItem = state.products.find( (item) => item.id === product.id );
+      productItem.inventory += product.quantity;
+    },
+    
+
+
 
 
   }
