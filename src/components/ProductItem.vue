@@ -2,7 +2,10 @@
    <div>
       <h3>Producto</h3>
       {{product.title}} - {{product.price | currency}} - {{product.inventory}}
-      <button @click="addProductToCart(product)">Add</button>
+      <button @click="addProductToCart(product)"
+              :disabled="!productIsInStock(product)"> 
+              Add
+      </button>
    </div>
 </template>
 
@@ -15,8 +18,12 @@
       methods: {
          addProductToCart(product) {
             this.$store.dispatch('addProductToCart', product);
-         }
+         },
+
       },
+      computed: {
+         ...mapGetters(['productIsInStock'])
+      }
       
    }
 </script>

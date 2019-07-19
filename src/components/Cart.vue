@@ -22,7 +22,7 @@
       computed: {
          ...mapGetters({
             cartProducts: 'cartProducts',
-            total: 'cartTotal'
+            total: 'cartTotal',
          }),
       }, 
       methods: {

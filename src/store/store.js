@@ -16,6 +16,11 @@ export default new Vuex.Store({
 
     /** Products **/
     allProducts: state => state.products,
+    productIsInStock () {
+      return (product) => {
+        return product.inventory > 0;
+      }
+    },
 
     /** Cart **/
     cartProducts: state => state.cart,
@@ -117,10 +122,6 @@ export default new Vuex.Store({
       productItem.inventory += product.quantity;
     },
     
-
-
-
-
   }
 })
 
